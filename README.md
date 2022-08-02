@@ -65,13 +65,16 @@ and shutdown with an exit code of `0` if everything executed successfully.
 
 # Example
 
-For a CI example with docker you can take a look at the code in this repository.
+For a CI example with docker you can take a look at the code the `mtzip` mod:
+
+Repository: https://github.com/BuckarooBanzay/mtzip
 
 The important files:
+* `mtt.lua` the tests, those could alternatively be inlined with the main code
 * `docker-compose.yml` the compose file that starts the minetest engine with `docker-compose up`
 * `.github/workflows/test.yml` the github workflow file with a version matrix
 * `test/minetest.conf` the server config for the test-mod
-* `test/mod/*` the test-mod that uses `mtt` (as example and validation in this case)
+* `test/Dockerfile` dockerfile that pulls in test-dependencies including the `mtt` mod from the `master` branch
 
 The whole testing can of course also be done without any docker tools.
 
@@ -82,6 +85,7 @@ The whole testing can of course also be done without any docker tools.
 # Used by
 
 * https://github.com/BuckarooBanzay/mapblock_lib
+* https://github.com/BuckarooBanzay/mtzip
 * https://github.com/BuckarooBanzay/eco
 
 # License
