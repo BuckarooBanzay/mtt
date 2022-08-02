@@ -79,6 +79,11 @@ The whole testing can of course also be done without any docker tools.
 
 * https://github.com/S-S-X/mineunit unit test framework
 
+# Used by
+
+* https://github.com/BuckarooBanzay/mapblock_lib
+* https://github.com/BuckarooBanzay/eco
+
 # License
 
 * Code: `MIT`
