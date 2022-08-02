@@ -65,7 +65,7 @@ and shutdown with an exit code of `0` if everything executed successfully.
 
 # Example
 
-For a CI example with docker you can take a look at the code the `mtzip` mod:
+For a CI example with docker you can take a look at the code from the `mtzip` mod:
 
 Repository: https://github.com/BuckarooBanzay/mtzip
 
