@@ -8,7 +8,7 @@ local function worker()
     return
   end
 
-  print("[mtt] Executing: '" .. job.name .. "'")
+  print("[mtt] Executing, mod: '" .. job.modname .. "' job: '" .. job.name .. "'")
   job.fn(function(err)
     if err then
         -- error callback

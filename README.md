@@ -63,6 +63,17 @@ mtt_enable = true
 After starting the minetest engine with this setting the mod will run all tests
 and shutdown with an exit code of `0` if everything executed successfully.
 
+## Filtering executed jobs
+
+Tests can be filtered with the `mtt_filter` setting.
+
+For example:
+```
+mtt_filter = my_mod,my_other_mod
+```
+
+This will only execute tests from the mod `my_mod` and `my_other_mod`
+
 # Example
 
 For a CI example with docker you can take a look at the code from the `mtzip` mod:
