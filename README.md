@@ -63,7 +63,7 @@ For a CI example with docker you can take a look at the code in this repository.
 The important files:
 * `docker-compose.yml` the compose file that starts the minetest engine with `docker-compose up`
 * `.github/workflows/test.yml` the github workflow file with a version matrix
-* `test/world.mt` the server config for the test-mod
+* `test/minetest.conf` the server config for the test-mod
 * `test/mod/*` the test-mod that uses `mtt` (as example and validation in this case)
 
 The whole testing can of course also be done without any docker tools.
