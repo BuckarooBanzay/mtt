@@ -42,6 +42,13 @@ Helper functions:
 ```lua
 -- emerge area for another test that follows
 mtt.emerge_area({x=0,y=0,z=0}, {x=32,y=32,z=32})
+
+-- export all nodenames
+local filename = minetest.get_worldpath() .. "/nodenames.txt"
+mtt.export_nodenames(filename)
+
+-- validate nodenames
+mtt.validate_nodenames(minetest.get_modpath("my_mod") .. "/nodenames.txt)
 ```
 
 # Executing

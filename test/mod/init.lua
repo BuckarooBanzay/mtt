@@ -6,3 +6,8 @@ mtt.register("my func", function(callback)
     assert(true)
     callback()
 end)
+
+local filename = minetest.get_worldpath() .. "/nodenames.txt"
+
+mtt.export_nodenames(filename)
+mtt.validate_nodenames(filename)
