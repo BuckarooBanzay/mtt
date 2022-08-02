@@ -68,6 +68,10 @@ The important files:
 
 The whole testing can of course also be done without any docker tools.
 
+# Related work
+
+* https://github.com/S-S-X/mineunit unit test framework
+
 # License
 
 * Code: `MIT`
