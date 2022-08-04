@@ -16,13 +16,13 @@ Status: **Stable**
 Main api:
 ```lua
 -- simple test function with assert and success callback
-mtt.register("my function name", function(callback)
+mtt.register("my test", function(callback)
     assert(my_condition == true)
     callback()
 end)
 
 -- test function with error message callback
-mtt.register("my function name", function(callback)
+mtt.register("my test", function(callback)
     if not check_something then
         callback("didn't work :(")
     end
@@ -30,12 +30,28 @@ mtt.register("my function name", function(callback)
 end)
 
 -- alternatively, using error:
-mtt.register("my function name", function(callback)
+mtt.register("my test", function(callback)
     if not check_something then
         error("didn't work :(")
     end
     callback() -- everything ok
+end
+
+-- test function with an area
+mtt.register_with_area("emerged area test", {
+    -- the desired area size
+    size = { x=10, y=10, z=10 },
+    -- optional, area will be emerged first if true
+    emerged = true
+}, function(pos1, pos2, callback)
+    -- execute test on area here
+    assert(pos2.x - pos1.x == 9)
+    assert(pos2.y - pos1.y == 9)
+    assert(pos2.z - pos1.z == 9)
+    callback()
 end)
+
+)
 ```
 
 Helper functions:

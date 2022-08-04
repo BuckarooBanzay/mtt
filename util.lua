@@ -10,6 +10,47 @@ function mtt.emerge_area(pos1, pos2)
     end)
 end
 
+-- current testing area offset
+local area_offset = {
+    x = -30000,
+    y = 0,
+    z = 0
+}
+
+function mtt.register_with_area(name, options, fn)
+    mtt.register(name, function(callback)
+        local pos1 = {
+            x = area_offset.x,
+            y = area_offset.y,
+            z = area_offset.z
+        }
+
+        local pos2 = vector.add(pos1, vector.subtract(options.size, 1))
+
+        -- increment x area offset for next test-area (at least in the next chunk)
+        area_offset.x = area_offset.x + options.size.x + 80
+
+        -- delegate launcher function, called after area is prepared
+        local function delegate_test()
+            fn(pos1, pos2, callback)
+        end
+
+        if options.emerged then
+            -- emerge area first
+            minetest.emerge_area(pos1, pos2, function(_, _, calls_remaining)
+                if calls_remaining == 0 then
+                    -- start actual test
+                    delegate_test()
+                end
+            end)
+        else
+            -- start directly
+            delegate_test()
+        end
+
+    end)
+end
+
 function mtt.export_nodenames(filename)
     local f = io.open(filename, "w")
     for nodename in pairs(minetest.registered_nodes) do
