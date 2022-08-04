@@ -79,7 +79,7 @@ mtt_enable = true
 After starting the minetest engine with this setting the mod will run all tests
 and shutdown with an exit code of `0` if everything executed successfully.
 
-## Filtering executed jobs
+## Filtering executed tests
 
 Tests can be filtered with the `mtt_filter` setting.
 
