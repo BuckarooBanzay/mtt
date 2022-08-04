@@ -16,7 +16,8 @@ local function worker()
         -- error callback
         error("test failed: '" .. test.name .. "' with error: '" .. err .. "'")
     end
-    print("[mtt] Test executed (" .. t_diff .. " ms)" ..
+    print(
+      "[mtt] Test executed (" .. t_diff .. " ms)" ..
       " mod: '" .. test.modname .. "'" ..
       " name: '" .. test.name .. "'"
     )
@@ -27,10 +28,8 @@ local function worker()
   end)
 end
 
--- wait until the world is ready
+-- wait until all mods are loaded
 minetest.register_on_mods_loaded(function()
-    minetest.after(1, function()
-        -- kick off testing
-        worker()
-    end)
+    -- kick off testing after world is ready and settled
+    minetest.after(1, worker)
 end)
