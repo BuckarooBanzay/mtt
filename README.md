@@ -50,8 +50,6 @@ mtt.register_with_area("emerged area test", {
     assert(pos2.z - pos1.z == 9)
     callback()
 end)
-
-)
 ```
 
 Helper functions:
