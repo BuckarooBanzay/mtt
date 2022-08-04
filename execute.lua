@@ -8,12 +8,18 @@ local function worker()
     return
   end
 
-  print("[mtt] Executing test, mod: '" .. test.modname .. "' name: '" .. test.name .. "'")
+  local t_start = minetest.get_us_time()
   test.fn(function(err)
+    local t_diff = math.floor((minetest.get_us_time() - t_start) / 100) / 10
+
     if err then
         -- error callback
         error("test failed: '" .. test.name .. "' with error: '" .. err .. "'")
     end
+    print("[mtt] Test executed (" .. t_diff .. " ms)" ..
+      " mod: '" .. test.modname .. "'" ..
+      " name: '" .. test.name .. "'"
+    )
 
     -- schedule next test
     test_index = test_index + 1
