@@ -62,7 +62,7 @@ local filename = minetest.get_worldpath() .. "/nodenames.txt"
 mtt.export_nodenames(filename)
 
 -- validate nodenames
-mtt.validate_nodenames(minetest.get_modpath("my_mod") .. "/nodenames.txt)
+mtt.validate_nodenames(minetest.get_modpath("my_mod") .. "/nodenames.txt")
 ```
 
 # Executing
