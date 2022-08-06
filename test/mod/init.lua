@@ -31,3 +31,5 @@ end)
 local filename = minetest.get_worldpath() .. "/nodenames.txt"
 mtt.export_nodenames(filename)
 mtt.validate_nodenames(filename)
+
+mtt.check_recipes("dye")

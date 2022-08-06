@@ -97,3 +97,37 @@ function mtt.validate_nodenames(filename)
         callback()
     end)
 end
+
+function mtt.check_recipes(modname)
+    mtt.register("recipe check for mod '" .. modname .. "'", function(callback)
+        -- ensure the mod is available
+        assert(minetest.get_modpath(modname), "mod not found: '" .. modname .. "'")
+
+        -- taken from https://github.com/mt-mods/homedecor_modpack/issues/41#issue-1330629615
+        -- thanks @wsor4035 :)
+        local output = {}
+        local hd_count, ig_count, missing_count = 0, 0, 0
+        for k, v in pairs(minetest.registered_items) do
+            if modname == k:split(":")[1] then
+                hd_count = hd_count + 1
+                local crafts = minetest.get_all_craft_recipes(k)
+                if not crafts then
+                    if v.groups and v.groups.not_in_creative_inventory == 1 then
+                        ig_count = ig_count + 1
+                    else
+                        missing_count = missing_count + 1
+                        table.insert(output, "* [ ] " .. k)
+                    end
+                end
+            end
+        end
+        if missing_count > 0 then
+            table.insert(output, "total items: " .. hd_count)
+            table.insert(output, "ignored items: " .. ig_count)
+            table.insert(output, "missing items: " .. missing_count)
+            minetest.log("error", dump(output))
+            error("missing crafting recipes: " .. missing_count)
+        end
+        callback()
+    end)
+end
