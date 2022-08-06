@@ -2,7 +2,7 @@ version: "3.6"
 
 services:
  sut:
-  image: registry.gitlab.com/minetest/minetest/server:${ENGINE_VERSION:-5.5.0}
+  image: registry.gitlab.com/minetest/minetest/server:${ENGINE_VERSION:-5.6.0}
   entrypoint: "minetestserver --config /minetest.conf"
   user: root
   volumes:
