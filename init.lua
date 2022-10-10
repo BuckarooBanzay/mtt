@@ -13,13 +13,17 @@ mtt = {
 local MP = minetest.get_modpath("mtt")
 dofile(MP .. "/api.lua")
 dofile(MP .. "/util.lua")
-dofile(MP .. "/player.lua")
 
 if mtt.export_nodenames then
     dofile(MP .. "/export_nodenames.lua")
 end
 
 if mtt.enabled then
+    minetest.log("warning", "mtt-mod active, don't enable this on a live-server!")
+
+    -- player api override
+    dofile(MP .. "/player.lua")
+
     -- start test execution
     dofile(MP .. "/execute.lua")
 end
