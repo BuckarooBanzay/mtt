@@ -32,4 +32,17 @@ local filename = minetest.get_worldpath() .. "/nodenames.txt"
 mtt.export_nodenames(filename)
 mtt.validate_nodenames(filename)
 
+-- recipe check
 mtt.check_recipes("dye")
+
+-- player join/leave
+mtt.register("player join", function(callback)
+    local joined_obj
+    minetest.register_on_joinplayer(function(o)
+        joined_obj = o
+    end)
+    local p = mtt.join_player("test")
+    assert(p)
+    assert(joined_obj)
+    callback()
+end)

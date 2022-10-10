@@ -1,5 +1,6 @@
 globals = {
 	"mtt",
+	"minetest"
 }
 
 read_globals = {
@@ -10,5 +11,5 @@ read_globals = {
 	-- Minetest
 	"ItemStack",
 	"dump", "dump2",
-	"VoxelArea", "minetest", "vector"
+	"VoxelArea", "vector"
 }
