@@ -38,9 +38,22 @@ mtt.check_recipes("dye")
 -- player join/leave
 mtt.register("player join", function(callback)
     local joined_obj
+    local leave_obj, timed_out
     minetest.register_on_joinplayer(function(o) joined_obj = o end)
+    minetest.register_on_leaveplayer(function(o, t)
+        leave_obj = o
+        timed_out = t
+    end)
+
     local p = mtt.join_player("test")
     assert(p)
     assert(joined_obj)
+    assert(not leave_obj)
+    assert(not timed_out)
+
+    p:leave(true)
+    assert(leave_obj)
+    assert(timed_out)
+
     callback()
 end)

@@ -55,7 +55,13 @@ function mtt.join_player(name)
         get_health = function() return health end,
         set_health = function(h) health = h end,
         get_breath = function() return breath end,
-        set_breath = function(b) breath = b end
+        set_breath = function(b) breath = b end,
+        leave = function(self, timed_out)
+            for _, fn in ipairs(minetest.registered_on_leaveplayers) do
+                fn(self, timed_out)
+            end
+            players[name] = nil
+        end
     }
 
     players[name] = player
