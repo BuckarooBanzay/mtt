@@ -114,9 +114,12 @@ The whole testing can of course also be done without any docker tools.
 # Used by
 
 * https://github.com/BuckarooBanzay/mapblock_lib
+* https://github.com/BuckarooBanzay/mapblock_tileset
 * https://github.com/BuckarooBanzay/mtzip
 * https://github.com/BuckarooBanzay/eco
 * https://github.com/BuckarooBanzay/super_sam
+* https://github.com/blockexchange/blockexchange
+* https://github.com/mt-mods/mail
 
 # License
 

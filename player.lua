@@ -1,17 +1,31 @@
 
+
 local function no_op() end
 
+local api_override_flag = false
 local players = {}
 
-function minetest.get_connected_players()
-    return players
-end
+-- overrides the minetest api functions
+local function override_api()
+    if api_override_flag then
+        -- only override once on test-execution start
+        return
+    end
 
-function minetest.get_player_information(name)
-    return players[name] and players[name].info
+    api_override_flag = true
+
+    function minetest.get_connected_players()
+        return players
+    end
+
+    function minetest.get_player_information(name)
+        return players[name] and players[name].info
+    end
 end
 
 function mtt.join_player(name)
+    override_api()
+
     local pos = {x=0, y=0, z=0}
     local hud_flags = {}
     local armor_groups = {}
