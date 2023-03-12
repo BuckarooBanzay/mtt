@@ -1,5 +1,3 @@
-local modfilter = minetest.settings:get("mtt_filter")
-
 local tests = {}
 
 function mtt.register(name, fn)
@@ -45,5 +43,5 @@ local function worker(index, success_callback)
 end
 
 function mtt.execute_tests(success_callback)
-minetest.after(0, worker, 1, success_callback)
+    minetest.after(0, worker, 1, success_callback)
 end
