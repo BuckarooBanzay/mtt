@@ -57,3 +57,12 @@ mtt.register("player join", function(callback)
 
     callback()
 end)
+
+-- benchmark
+mtt.benchmark("bench-thing", function(callback, iterations)
+    for _=1,iterations do
+        -- stuff
+    end
+
+    callback()
+end)

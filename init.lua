@@ -1,8 +1,5 @@
 
 mtt = {
-    -- tests table
-    tests = {},
-
     -- enabled flag
     enabled = minetest.settings:get("mtt_enable") == "true",
 
@@ -11,7 +8,8 @@ mtt = {
 }
 
 local MP = minetest.get_modpath("mtt")
-dofile(MP .. "/api.lua")
+dofile(MP .. "/test.lua")
+dofile(MP .. "/benchmark.lua")
 dofile(MP .. "/util.lua")
 
 if mtt.export_nodenames then
