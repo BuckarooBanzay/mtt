@@ -1,0 +1,8 @@
+# Enables the test-exection of registered tests and shuts down afterwards
+mtt_enable (Enable mtt mod) bool false
+
+# Comma-separated list of mods that the test-executor should run
+mtt_filter (List of enabled mods with tests) string
+
+# Also enable benchmarks after testing
+mtt_enable_benchmarks (Enable benchmarks) bool false
