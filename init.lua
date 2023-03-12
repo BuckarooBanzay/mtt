@@ -3,6 +3,9 @@ mtt = {
     -- enabled flag
     enabled = minetest.settings:get("mtt_enable") == "true",
 
+    -- benchmarks enabled flag
+    enable_benchmarks = minetest.settings:get("mtt_enable_benchmarks") == "true",
+
     -- export all nodenames to the worldpath (nodenames.txt)
     export_nodenames = minetest.settings:get("mtt_export_nodenames") == "true"
 }

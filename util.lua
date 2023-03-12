@@ -131,3 +131,27 @@ function mtt.check_recipes(modname)
         callback()
     end)
 end
+
+local modfilter = minetest.settings:get("mtt_filter")
+
+function mtt.is_mod_enabled(modname)
+    if not mtt.enabled then
+        -- mtt not enabled, don't match anything
+        return false
+    end
+
+    -- check modfilter and current modname
+    if modfilter then
+        for filter in string.gmatch(modfilter, '([^,]+)') do
+            if filter == modname then
+                return true
+            end
+        end
+
+        -- filter defined but does not match
+        return false
+    end
+
+    -- no filter defined, match all
+    return true
+end
