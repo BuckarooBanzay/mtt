@@ -51,10 +51,13 @@ local function worker(index, success_callback)
                 it_index = it_index + 1
             end
 
+            local executions_per_second = math.floor(1000000 * iterations / t_diff)
+
             print("[mtt] Benchmark '" .. entry.name ..
                 "' in mod '" .. entry.modname ..
                 "' with " .. iterations ..
-                " iterations took " .. t_diff .. " microseconds")
+                " iterations took " .. t_diff .. " microseconds " ..
+                "(" .. executions_per_second .. " executions/s)")
 
             minetest.after(0, iteration_worker)
         end
