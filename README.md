@@ -8,6 +8,7 @@ Status: **Stable**
 
 ![](https://github.com/BuckarooBanzay/mtt/workflows/luacheck/badge.svg)
 ![](https://github.com/BuckarooBanzay/mtt/workflows/test/badge.svg)
+[![Coverage Status](https://coveralls.io/repos/github/BuckarooBanzay/mtt/badge.svg?branch=main)](https://coveralls.io/github/BuckarooBanzay/mtt?branch=main)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](license.txt)
 [![Download](https://img.shields.io/badge/Download-ContentDB-blue.svg)](https://content.minetest.net/packages/BuckarooBanzay/mtt)
 
