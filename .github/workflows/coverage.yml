@@ -11,11 +11,10 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: test
-      env:
-        COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        sudo apt-get install -y luarocks
-        sudo luarocks install luacov-coveralls
         docker-compose up --exit-code-from sut
-        docker cp mtt_sut_1:/var/lib/minetest/luacov.stats.out .
-        luacov-coveralls -v
+        docker cp mtt_sut_1:/var/lib/minetest/luacov.report.out .
+    - name: Coveralls
+      uses: coverallsapp/github-action@v1
+      with:
+        path-to-lcov: "luacov.report.out"
