@@ -14,7 +14,7 @@ jobs:
       run: |
         docker-compose up --exit-code-from sut
         docker cp mtt_sut_1:/var/lib/minetest/luacov.report.out .
-        sed -i 's#/root/.minetest/worlds/world/worldmods/test_mod/##g' luacov.report.out
+        sed -i 's#/root/.minetest/worlds/world/worldmods/test_mod/#/#g' luacov.report.out
     - name: Coveralls
       uses: coverallsapp/github-action@v1
       with:
