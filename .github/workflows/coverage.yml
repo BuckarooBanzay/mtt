@@ -17,7 +17,7 @@ jobs:
         sudo apt-get install -y luarocks
         sudo luarocks install luacov-coveralls
         docker-compose up --exit-code-from sut
-        sudo docker cp mtt_sut_1:/root/.minetest /root/
-        sudo docker cp mtt_sut_1:/var/lib/minetest/luacov.stats.out .
+        docker cp mtt_sut_1:/root/.minetest /root/
+        docker cp mtt_sut_1:/var/lib/minetest/luacov.stats.out .
         ls -lha /root/.minetest .
         luacov-coveralls -v
