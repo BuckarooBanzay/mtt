@@ -1,7 +1,9 @@
 
 local function shutdown()
     minetest.request_shutdown("success")
-    mtt.luacov_runner.save_stats()
+    if mtt.luacov_runner then
+        mtt.luacov_runner.save_stats()
+    end
 end
 
 -- wait until all mods are loaded
