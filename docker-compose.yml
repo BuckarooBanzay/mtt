@@ -12,6 +12,7 @@ services:
     - "./test/world.mt:/root/.minetest/worlds/world/world.mt"
     - "./test/minetest.conf:/minetest.conf"
     - "world:/root/.minetest/worlds/world"
+    - "./coverage:/var/lib/minetest"
 
 volumes:
   world: {}
