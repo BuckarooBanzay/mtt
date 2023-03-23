@@ -19,4 +19,5 @@ jobs:
         docker-compose up --exit-code-from sut
         sudo docker cp mtt_sut_1:/root/.minetest /root/
         sudo docker cp mtt_sut_1:/var/lib/minetest/luacov.stats.out .
+        ls -lha /root/.minetest .
         luacov-coveralls -v
