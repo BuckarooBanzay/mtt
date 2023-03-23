@@ -1,4 +1,9 @@
 
+local function shutdown()
+    minetest.request_shutdown("success")
+    mtt.luacov_runner.save_stats()
+end
+
 -- wait until all mods are loaded
 minetest.register_on_mods_loaded(function()
     -- kick off testing after world is ready and settled
@@ -6,13 +11,10 @@ minetest.register_on_mods_loaded(function()
 
         if mtt.enable_benchmarks then
             -- execute benchmarks
-            mtt.execute_benchmarks(function()
-                -- exit gracefully
-                minetest.request_shutdown("success")
-            end)
+            mtt.execute_benchmarks(shutdown)
         else
             -- exit gracefully
-            minetest.request_shutdown("success")
+            shutdown()
         end
     end)
 end)

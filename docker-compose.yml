@@ -2,17 +2,16 @@ version: "3.6"
 
 services:
  sut:
-  image: registry.gitlab.com/minetest/minetest/server:${ENGINE_VERSION:-5.6.0}
-  entrypoint: "minetestserver --config /minetest.conf"
-  user: root
+  build:
+   context: ./test
+   args:
+    ENGINE_VERSION: ${ENGINE_VERSION:-5.5.0}
   volumes:
     - "./:/root/.minetest/worlds/world/worldmods/mtt/"
     - "./test/mod:/root/.minetest/worlds/world/worldmods/test_mod/"
     - "./test/world.mt:/root/.minetest/worlds/world/world.mt"
     - "./test/minetest.conf:/minetest.conf"
     - "world:/root/.minetest/worlds/world"
-  ports:
-    - "30000:30000/udp"
 
 volumes:
   world: {}

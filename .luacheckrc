@@ -1,6 +1,7 @@
 globals = {
 	"mtt",
-	"minetest"
+	"minetest",
+	"require", "io"
 }
 
 read_globals = {
