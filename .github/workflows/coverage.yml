@@ -14,9 +14,9 @@ jobs:
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
-        apt install luarocks
-        luarocks install luacov-coveralls
+        sudo apt-get install -y luarocks
+        sudo luarocks install luacov-coveralls
         docker-compose up --exit-code-from sut
-        id
-        docker cp mtt_sut_1:/root/.minetest ./root/
+        sudo docker cp mtt_sut_1:/root/.minetest ./root/
+        sudo docker cp mtt_sut_1:/var/lib/minetest/luacov.stats.out .
         luacov-coveralls -v
