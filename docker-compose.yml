@@ -6,9 +6,6 @@ services:
    context: ./test
    args:
     ENGINE_VERSION: ${ENGINE_VERSION:-5.5.0}
-  environment:
-    COVERALLS_REPO_TOKEN: ${COVERALLS_REPO_TOKEN}
-    COVERALLS_DEBUG: "true"
   volumes:
     - "./:/root/.minetest/worlds/world/worldmods/mtt/"
     - "./test/mod:/root/.minetest/worlds/world/worldmods/test_mod/"

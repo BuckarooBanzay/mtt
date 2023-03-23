@@ -13,4 +13,9 @@ jobs:
     - name: test
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: docker-compose up --exit-code-from sut
+      run: |
+        luarocks install luacov-coveralls
+        docker-compose up --exit-code-from sut
+        id
+        docker cp mtt_sut_1:/root/.minetest ./root/
+        luacov-coveralls -v
