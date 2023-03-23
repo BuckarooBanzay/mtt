@@ -3,6 +3,7 @@ FROM registry.gitlab.com/minetest/minetest/server:${ENGINE_VERSION}
 USER root
 
 RUN apk add --no-cache lua-dev luarocks &&\
-    luarocks-5.1 install luacov luacov-reporter-lcov
+    luarocks-5.1 install luacov &&\
+    luarocks-5.1 install luacov-reporter-lcov
 
 ENTRYPOINT minetestserver --config /minetest.conf
