@@ -6,4 +6,4 @@ RUN apk add --no-cache lua-dev luarocks alpine-sdk &&\
     luarocks-5.1 install luacov &&\
     luarocks-5.1 install luacov-coveralls
 
-ENTRYPOINT minetestserver --config /minetest.conf && (test -n "${COVERALLS_REPO_TOKEN}" && luacov-coveralls -t ${COVERALLS_REPO_TOKEN} || true)
+ENTRYPOINT minetestserver --config /minetest.conf && (test -n "${COVERALLS_REPO_TOKEN}" && luacov-coveralls -v || true)
