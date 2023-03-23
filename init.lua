@@ -42,7 +42,8 @@ if mtt.enabled then
             end
 
             mtt.luacov_runner.init({
-                include = include_paths
+                include = include_paths,
+                reporter = "lcov"
             })
         end
     end

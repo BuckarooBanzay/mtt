@@ -3,6 +3,7 @@ local function shutdown()
     minetest.request_shutdown("success")
     if mtt.luacov_runner then
         mtt.luacov_runner.save_stats()
+        mtt.luacov_runner.run_report()
     end
 end
 
