@@ -14,6 +14,9 @@ if ie then
 
     mtt.luacov_runner.init({
         include = include_paths,
+        exclude = {
+            ".+spec"
+        },
         reporter = "lcov",
         reportfile = "lcov.info"
     })
