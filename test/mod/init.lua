@@ -58,6 +58,10 @@ mtt.register("player join", function(callback)
     callback()
 end)
 
+mtt.register("simple promise", function()
+    return Promise.after(0)
+end)
+
 -- benchmark
 mtt.benchmark("bench-thing", function(callback, iterations)
     for _=1,iterations do

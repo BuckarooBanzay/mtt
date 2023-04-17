@@ -24,7 +24,7 @@ local function worker(index, success_callback)
     end
 
     local t_start = minetest.get_us_time()
-    test.fn(function(err)
+    local result_handler = function(err)
         local t_diff = math.floor((minetest.get_us_time() - t_start) / 100) / 10
 
         if err then
@@ -39,7 +39,18 @@ local function worker(index, success_callback)
 
         -- schedule next test
         minetest.after(0, worker, index+1, success_callback)
-    end)
+    end
+
+    local p = test.fn(result_handler)
+    if p and p.is_promise then
+        -- promise returned, handle it
+        p:next(result_handler)
+        p:catch(function(err)
+            -- ensure that the "err" param is set
+            err = err or "unknown"
+            result_handler(err)
+        end)
+    end
 end
 
 function mtt.execute_tests(success_callback)
