@@ -81,16 +81,20 @@ function mtt.validate_nodenames(filename)
         end
 
         -- check nodes
-        local all_nodes_present = true
+        local missing_nodenames = {}
         for _, nodename in ipairs(assert_nodes) do
             if not minetest.registered_nodes[nodename]
                 and not minetest.registered_aliases[nodename]
                 and not lbm_nodes[nodename] then
-                    error("Node not present and not available in an alias/lbm: " .. nodename)
+                    table.insert(missing_nodenames, nodename)
             end
         end
 
-        if not all_nodes_present then
+        if #missing_nodenames > 0 then
+            print("Nodes not present and not available in an alias/lbm:")
+            for _, nodename in ipairs(missing_nodenames) do
+                print(" - '" .. nodename .. "'")
+            end
             error("some of the required nodes are not present and not aliased!")
         end
 
