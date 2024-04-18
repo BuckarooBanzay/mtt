@@ -3,6 +3,8 @@ export
 
 ln -s /root/.minetest/worlds/world/worldmods/test_mod /github/workspace
 
+ls -lha /root/.minetest/worlds/world/worldmods/
+
 cat <<EOF > /minetest.conf
 default_game = minetest_game
 mg_name = singlenode
@@ -12,6 +14,8 @@ mtt_enable_benchmarks = true
 mtt_export_nodenames = true
 mtt_enable_selftest = true
 EOF
+
+cat /minetest.conf
 
 cat <<EOF > /root/.minetest/worlds/world/world.mt
 enable_damage = false
