@@ -1,9 +1,13 @@
 #!/bin/sh
 export
 
-ln -s /github/workspace /root/.minetest/worlds/world/worldmods/test_mod
 
-ls -lha /root/.minetest/worlds/world/worldmods/
+mkdir -p ${HOME}/.minetest/worlds/world/worldmods/
+git clone https://github.com/BuckarooBanzay/mtt ${HOME}/.minetest/worlds/world/worldmods/mtt
+
+ln -s /github/workspace ${HOME}/.minetest/worlds/world/worldmods/test_mod
+
+ls -lha ${HOME}/.minetest/worlds/world/worldmods/
 
 cat <<EOF > /minetest.conf
 default_game = minetest_game
@@ -17,7 +21,7 @@ EOF
 
 cat /minetest.conf
 
-cat <<EOF > /root/.minetest/worlds/world/world.mt
+cat <<EOF > ${HOME}/.minetest/worlds/world/world.mt
 enable_damage = false
 creative_mode = true
 mod_storage_backend = sqlite3
