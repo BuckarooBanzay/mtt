@@ -11,6 +11,8 @@ jobs:
     - uses: buckaroobanzay/mtt@main
       with:
         modname: mtt
+        enable_coverage: "true"
+        enable_benchmarks: true
         git_dependencies: |
           https://github.com/BuckarooBanzay/promise
         additional_config: |
