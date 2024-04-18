@@ -49,5 +49,6 @@ minetestserver --config /minetest.conf --world ${WORLDPATH}
 # coverage filename replace
 test "${INPUT_ENABLE_COVERAGE}" == "true" &&{
     sed -i "s#${WORLDPATH}/worldmods/${INPUT_MODNAME}/##g" ${WORLDPATH}/lcov.info
-    cp ${WORLDPATH}/lcov.info /github/workspace/
+    mkdir /github/workspace/coverage
+    cp ${WORLDPATH}/lcov.info /github/workspace/coverage/
 }
