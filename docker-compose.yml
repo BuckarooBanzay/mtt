@@ -8,7 +8,6 @@ services:
     ENGINE_VERSION: ${ENGINE_VERSION:-5.5.0}
   volumes:
     - "./:/root/.minetest/worlds/world/worldmods/mtt/"
-    - "./test/mod:/root/.minetest/worlds/world/worldmods/test_mod/"
     - "./test/world.mt:/root/.minetest/worlds/world/world.mt"
     - "./test/minetest.conf:/minetest.conf"
     - "world:/root/.minetest/worlds/world"

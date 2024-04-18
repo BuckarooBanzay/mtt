@@ -9,3 +9,7 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - uses: buckaroobanzay/mtt@github-action
+      with:
+        modname: mtt
+        dependencies:
+         - https://github.com/mt-mods/promise
