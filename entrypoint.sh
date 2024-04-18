@@ -1,4 +1,5 @@
 #!/bin/sh
+export
 
 ln -s /root/.minetest/worlds/world/worldmods/test_mod /github/workspace
 

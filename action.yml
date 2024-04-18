@@ -1,6 +1,14 @@
 name: mtt
 description: Minetest test runner
-#inputs:
+inputs:
+  modname:
+    description: "manual modname to use (if no mod.conf provided)"
+    required: false
+    default: "testmod"
+  dependencies:
+    description: "list of dependencies to download"
+    required: false
+    default: ""
 #  engine_image:
 #    description: minetest engine docker image
 #    required: false
