@@ -13,6 +13,6 @@ jobs:
     - name: test
       run: |
         docker-compose up --exit-code-from sut
-        sudo sed -i 's#/root/.minetest/worlds/world/worldmods/mtt/#/#g' coverage/lcov.info
+        sudo sed -i 's#/root/.minetest/worlds/world/worldmods/mtt/##g' coverage/lcov.info
     - name: Coveralls
       uses: coverallsapp/github-action@v1

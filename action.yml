@@ -20,6 +20,14 @@ inputs:
     description: "mapgen name"
     required: false
     default: "singlenode"
+  enable_coverage:
+    description: "enable lua code coverage"
+    required: false
+    default: "false"
+  enable_benchmarks:
+    description: "enable benchmarks"
+    required: false
+    default: "false"
 
 runs:
   using: docker

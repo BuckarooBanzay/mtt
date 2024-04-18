@@ -24,8 +24,12 @@ cat <<EOF > /minetest.conf
 mg_name = ${INPUT_MAPGEN}
 mtt_filter = ${INPUT_MODNAME}
 mtt_enable = true
+secure.trusted_mods = mtt
 EOF
 echo "${INPUT_ADDITIONAL_CONFIG}" >> /minetest.conf
+
+test "${INPUT_ENABLE_COVERAGE}" == "true" && echo "mtt_enable_coverage = true" >> /minetest.conf
+test "${INPUT_ENABLE_BENCHMARKS}" == "true" && echo "mtt_enable_benchmarks = true" >> /minetest.conf
 
 # simple world.mt
 cat <<EOF > ${WORLDPATH}/world.mt
@@ -41,3 +45,9 @@ EOF
 
 # start the engine
 minetestserver --config /minetest.conf --world ${WORLDPATH}
+
+# coverage filename replace
+test "${INPUT_ENABLE_COVERAGE}" == "true" &&{
+    sed -i "s#${WORLDPATH}/worldmods/${INPUT_MODNAME}/##g" ${WORLDPATH}/lcov.info
+    cp ${WORLDPATH}/lcov.info /github/workspace/
+}
