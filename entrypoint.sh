@@ -21,7 +21,7 @@ ln -s /github/workspace ${WORLDPATH}/worldmods/${INPUT_MODNAME}
 
 # assemble minetest.conf
 cat <<EOF > /minetest.conf
-mg_name = singlenode
+mg_name = ${INPUT_MAPGEN}
 mtt_filter = ${INPUT_MODNAME}
 mtt_enable = true
 EOF

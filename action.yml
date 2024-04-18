@@ -16,6 +16,10 @@ inputs:
     description: "git repo of the game to use"
     required: false
     default: "https://github.com/minetest/minetest_game"
+  mapgen:
+    description: "mapgen name"
+    required: false
+    default: "singlenode"
 
 runs:
   using: docker
