@@ -12,5 +12,6 @@ jobs:
       with:
         modname: mtt
         dependencies: |
-          https://github.com/mt-mods/promise
-          https://github.com/mt-mods/pipeworks
+          https://github.com/mt-mods/xcompat
+        additional_config: |
+          mtt_enable_selftest = true
