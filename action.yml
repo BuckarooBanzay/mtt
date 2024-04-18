@@ -1,0 +1,26 @@
+name: mtt
+description: Minetest test runner
+inputs:
+  modname:
+    description: "the modname to test"
+    required: true
+  git_dependencies:
+    description: "list of git-dependencies to download"
+    required: false
+    default: "https://github.com/BuckarooBanzay/mtt"
+  additional_config:
+    description: "additional lines for minetest.conf"
+    required: false
+    default: ""
+  git_game_repo:
+    description: "git repo of the game to use"
+    required: false
+    default: "https://github.com/minetest/minetest_game"
+
+runs:
+  using: docker
+  image: 'Dockerfile'
+
+branding:
+  icon: check
+  color: yellow

@@ -1,0 +1,17 @@
+name: test-action
+
+on: [push, pull_request]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: buckaroobanzay/mtt@main
+      with:
+        modname: mtt
+        git_dependencies: |
+          https://github.com/BuckarooBanzay/promise
+        additional_config: |
+          mtt_enable_selftest = true

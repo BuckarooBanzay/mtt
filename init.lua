@@ -13,6 +13,9 @@ mtt = {
     -- requires `mtt` to be in the "secure.trusted_mods setting" and `luacov` to be installed
     -- warning: insecure vars are never cleaned up
     enable_coverage = minetest.settings:get("mtt_enable_coverage") == "true",
+
+    -- enable self-tests
+    enable_selftest = minetest.settings:get("mtt_enable_selftest") == "true",
 }
 
 local MP = minetest.get_modpath("mtt")
@@ -38,4 +41,8 @@ if mtt.enabled then
 
     -- start test execution
     dofile(MP .. "/execute.lua")
+
+    if mtt.enable_selftest then
+        dofile(MP .. "/selftest.lua")
+    end
 end
