@@ -1,17 +1,23 @@
 #!/bin/sh
 
+export WORLDPATH=${HOME}/.minetest/worlds/world
+
 # create directory skeleton
-mkdir -p ${HOME}/.minetest/worlds/world/worldmods/
+mkdir -p ${WORLDPATH}/worldmods/
 
 # clone dependencies
-cd ${HOME}/.minetest/worlds/world/worldmods/
-for dep in ${INPUT_DEPENDENCIES}
+cd ${WORLDPATH}/worldmods/
+for dep in ${INPUT_GIT_DEPENDENCIES}
 do
-    git clone $dep
+    git clone --depth=1 $dep
 done
 
+# install game
+cd ${WORLDPATH}/world/
+git clone --depth=1 ${INPUT_GIT_GAME_REPO} game
+
 # create link to current mod
-ln -s /github/workspace ${HOME}/.minetest/worlds/world/worldmods/${INPUT_MODNAME}
+ln -s /github/workspace ${WORLDPATH}/worldmods/${INPUT_MODNAME}
 
 # assemble minetest.conf
 cat <<EOF > /minetest.conf
@@ -23,7 +29,7 @@ EOF
 echo "${INPUT_ADDITIONAL_CONFIG}" >> /minetest.conf
 
 # simple world.mt
-cat <<EOF > ${HOME}/.minetest/worlds/world/world.mt
+cat <<EOF > ${WORLDPATH}/world.mt
 enable_damage = false
 creative_mode = true
 mod_storage_backend = sqlite3
@@ -35,4 +41,4 @@ world_name = mtt
 EOF
 
 # start the engine
-minetestserver --config /minetest.conf
+minetestserver --config /minetest.conf --world ${WORLDPATH}
