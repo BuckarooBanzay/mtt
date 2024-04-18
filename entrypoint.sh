@@ -20,7 +20,7 @@ mg_name = singlenode
 mtt_filter = ${INPUT_MODNAME}
 mtt_enable = true
 EOF
-cat ${INPUT_ADDITIONAL_CONFIG} >> /minetest.conf
+echo "${INPUT_ADDITIONAL_CONFIG}" >> /minetest.conf
 
 # simple world.mt
 cat <<EOF > ${HOME}/.minetest/worlds/world/world.mt
