@@ -11,4 +11,6 @@ jobs:
     - uses: buckaroobanzay/mtt@github-action
       with:
         modname: mtt
-        dependencies: https://github.com/mt-mods/promise,https://github.com/mt-mods/pipeworks
+        dependencies: |
+          https://github.com/mt-mods/promise
+          https://github.com/mt-mods/pipeworks
