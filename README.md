@@ -93,7 +93,54 @@ mtt_filter = my_mod,my_other_mod
 
 This will only execute tests from the mod `my_mod` and `my_other_mod`
 
-# Example
+# Github action
+
+The `mtt` tests can be used in a github runner:
+
+A simple workflow for the mod `mymod`:
+```yml
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: buckaroobanzay/mtt@main
+      with:
+        modname: mymod
+```
+
+An [extended setup](https://github.com/mt-mods/promise/blob/master/.github/workflows/test.yml) with dependencies, coverage and additional minetest settings:
+```yml
+name: test
+on: [push, pull_request]
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: buckaroobanzay/mtt@main
+      with:
+        modname: promise
+        enable_coverage: "true"
+        git_dependencies: |
+          https://github.com/BuckarooBanzay/mtt
+        additional_config: |
+          secure.http_mods = promise
+    - uses: coverallsapp/github-action@v1
+```
+
+All parameters:
+* `modname` (required) the name of the mod
+* `enable_coverage` enables coverage stats
+* `enable_benchmarks` enables the benchmarks
+* `git_dependencies` list of dependencies (git repositories)
+* `additional_config` additional lines in the minetest.conf
+* `git_game_repo` url to the game (defaults to the minetest_game)
+* `mapgen` the mapgen t use (default so singlenode)
+
+# Using with "raw" docker
 
 For a CI example with docker you can take a look at the code from the `mtzip` mod:
 
