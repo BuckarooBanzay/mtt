@@ -1,5 +1,5 @@
-ARG ENGINE_VERSION=5.6.1
-FROM registry.gitlab.com/minetest/minetest/server:${ENGINE_VERSION}
+ARG ENGINE_VERSION=master
+FROM ghcr.io/minetest/minetest:${ENGINE_VERSION}
 USER root
 
 RUN apk add --no-cache lua-dev luarocks &&\
