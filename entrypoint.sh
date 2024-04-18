@@ -46,14 +46,8 @@ EOF
 # start the engine
 minetestserver --config /minetest.conf --world ${WORLDPATH}
 
-# TODO: coverage filename replace
-# sudo sed -i 's#/root/.minetest/worlds/world/worldmods/mtt/#/#g' coverage/lcov.info
-
-ls -lha ${WORLDPATH}
-ls -lha /var/lib/minetest
-
 # coverage filename replace
 test "${INPUT_ENABLE_COVERAGE}" == "true" &&{
-    sed -i "s#${WORLDPATH}/worldmods/${INPUT_MODNAME}/#/#g" lcov.info
-    cp lcov.info /github/workspace/
+    sed -i "s#${WORLDPATH}/worldmods/${INPUT_MODNAME}/#/#g" ${WORLDPATH}/lcov.info
+    cp ${WORLDPATH}/lcov.info /github/workspace/
 }
