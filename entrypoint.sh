@@ -12,6 +12,11 @@ do
     git clone --depth=1 $dep
 done
 
+# add the mtt mod if it does not exist
+test -d ${WORLDPATH}/worldmods/mtt ||{
+    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
+}
+
 # install game
 cd ${WORLDPATH}/
 git clone --depth=1 ${INPUT_GIT_GAME_REPO} game
