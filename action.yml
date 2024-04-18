@@ -8,7 +8,7 @@ inputs:
   dependencies:
     description: "list of dependencies to download"
     required: false
-    default: ""
+    default: "https://github.com/BuckarooBanzay/mtt"
 #  engine_image:
 #    description: minetest engine docker image
 #    required: false

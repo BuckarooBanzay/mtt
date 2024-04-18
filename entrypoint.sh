@@ -3,11 +3,15 @@ export
 
 
 mkdir -p ${HOME}/.minetest/worlds/world/worldmods/
-git clone https://github.com/BuckarooBanzay/mtt ${HOME}/.minetest/worlds/world/worldmods/mtt
+cd ${HOME}/.minetest/worlds/world/worldmods/
 
-ln -s /github/workspace ${HOME}/.minetest/worlds/world/worldmods/test_mod
+for dep in ${INPUT_DEPENDENCIES}
+do
+    git clone $dep
+done
 
-ls -lha ${HOME}/.minetest/worlds/world/worldmods/
+
+ln -s /github/workspace ${HOME}/.minetest/worlds/world/worldmods/${INPUT_MODNAME}
 
 cat <<EOF > /minetest.conf
 default_game = minetest_game
@@ -18,8 +22,6 @@ mtt_enable_benchmarks = true
 mtt_export_nodenames = true
 mtt_enable_selftest = true
 EOF
-
-cat /minetest.conf
 
 cat <<EOF > ${HOME}/.minetest/worlds/world/world.mt
 enable_damage = false
