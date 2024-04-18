@@ -1,5 +1,5 @@
 #!/bin/sh
-
+set -e
 export WORLDPATH=${HOME}/.minetest/worlds/world
 
 # create directory skeleton
@@ -13,7 +13,7 @@ do
 done
 
 # install game
-cd ${WORLDPATH}/world/
+cd ${WORLDPATH}/
 git clone --depth=1 ${INPUT_GIT_GAME_REPO} game
 
 # create link to current mod
@@ -21,7 +21,6 @@ ln -s /github/workspace ${WORLDPATH}/worldmods/${INPUT_MODNAME}
 
 # assemble minetest.conf
 cat <<EOF > /minetest.conf
-default_game = minetest_game
 mg_name = singlenode
 mtt_filter = ${INPUT_MODNAME}
 mtt_enable = true
@@ -36,7 +35,7 @@ mod_storage_backend = sqlite3
 auth_backend = sqlite3
 player_backend = dummy
 backend = dummy
-gameid = minetest
+gameid = game
 world_name = mtt
 EOF
 
