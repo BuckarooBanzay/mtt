@@ -1,7 +1,7 @@
 #!/bin/sh
 export
 
-ln -s /root/.minetest/worlds/world/worldmods/test_mod /github/workspace
+ln -s /github/workspace /root/.minetest/worlds/world/worldmods/test_mod
 
 ls -lha /root/.minetest/worlds/world/worldmods/
 
