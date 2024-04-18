@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - uses: buckaroobanzay/mtt@github-action
+    - uses: buckaroobanzay/mtt
       with:
         modname: mtt
         git_dependencies: |
