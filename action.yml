@@ -1,4 +1,4 @@
-name: mtt
+name: mtt-runner
 description: Minetest test runner
 inputs:
   modname:
