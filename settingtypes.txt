@@ -6,3 +6,6 @@ mtt_filter (List of enabled mods with tests) string
 
 # Also enable benchmarks after testing
 mtt_enable_benchmarks (Enable benchmarks) bool false
+
+# Export nodenames on startup to <worldpath>/nodenames.txt
+mtt_export_nodenames (Enable nodename export) bool false
