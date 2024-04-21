@@ -28,7 +28,7 @@ if mtt.export_nodenames then
 end
 
 if mtt.enabled then
-    minetest.log("warning", "mtt-mod active, don't enable this on a live-server!")
+    minetest.log("warning", "[mtt] mod active, don't enable this on a live-server!")
 
     if mtt.enable_coverage then
         -- enable coverage
