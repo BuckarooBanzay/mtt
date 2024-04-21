@@ -9,7 +9,7 @@ mkdir -p ${WORLDPATH}/worldmods/
 cd ${WORLDPATH}/worldmods/
 for dep in ${INPUT_GIT_DEPENDENCIES}
 do
-    git clone --depth=1 $dep
+    git clone --recurse-submodules --depth=1 $dep
 done
 
 # add the mtt mod if it does not exist
@@ -20,7 +20,7 @@ fi
 
 # install game
 cd ${WORLDPATH}/
-git clone --depth=1 ${INPUT_GIT_GAME_REPO} game
+git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
 
 # create link to current mod
 ln -s /github/workspace ${WORLDPATH}/worldmods/${INPUT_MODNAME}
