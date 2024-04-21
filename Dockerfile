@@ -1,4 +1,4 @@
-FROM registry.gitlab.com/minetest/minetest/server:5.6.1
+FROM ghcr.io/minetest-hosting/minetest-docker:5.8.0
 USER root
 
 RUN apk add --no-cache git lua-dev luarocks &&\
