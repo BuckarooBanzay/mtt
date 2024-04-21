@@ -13,9 +13,10 @@ do
 done
 
 # add the mtt mod if it does not exist
-test -d ${WORLDPATH}/worldmods/mtt ||{
-    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
-}
+if [ ! -d ${WORLDPATH}/worldmods/mtt ]
+then
+   git clone --depth=1 https://github.com/BuckarooBanzay/mtt
+fi
 
 # install game
 cd ${WORLDPATH}/
@@ -33,8 +34,15 @@ secure.trusted_mods = mtt
 EOF
 echo "${INPUT_ADDITIONAL_CONFIG}" >> /minetest.conf
 
-test "${INPUT_ENABLE_COVERAGE}" == "true" && echo "mtt_enable_coverage = true" >> /minetest.conf
-test "${INPUT_ENABLE_BENCHMARKS}" == "true" && echo "mtt_enable_benchmarks = true" >> /minetest.conf
+if [ "${INPUT_ENABLE_COVERAGE}" == "true" ]
+then
+    echo "mtt_enable_coverage = true" >> /minetest.conf
+fi
+
+if [ "${INPUT_ENABLE_BENCHMARKS}" == "true" ]
+then
+    echo "mtt_enable_benchmarks = true" >> /minetest.conf
+fi
 
 # simple world.mt
 cat <<EOF > ${WORLDPATH}/world.mt
@@ -52,8 +60,9 @@ EOF
 minetestserver --config /minetest.conf --world ${WORLDPATH}
 
 # coverage filename replace
-test "${INPUT_ENABLE_COVERAGE}" == "true" &&{
+if [ "${INPUT_ENABLE_COVERAGE}" == "true" ]
+then
     sed -i "s#${WORLDPATH}/worldmods/${INPUT_MODNAME}/##g" ${WORLDPATH}/lcov.info
     mkdir /github/workspace/coverage
     cp ${WORLDPATH}/lcov.info /github/workspace/coverage/
-}
+fi
