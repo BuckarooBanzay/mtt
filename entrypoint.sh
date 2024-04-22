@@ -1,8 +1,6 @@
 #!/bin/sh
 set -e
-
 export WORLDPATH=${HOME}/.minetest/worlds/world
-echo GITHUB_REPOSITORY=${GITHUB_REPOSITORY}
 export
 
 # create directory skeleton
