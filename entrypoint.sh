@@ -1,5 +1,6 @@
 #!/bin/sh
 set -e
+export
 export WORLDPATH=${HOME}/.minetest/worlds/world
 
 # create directory skeleton
