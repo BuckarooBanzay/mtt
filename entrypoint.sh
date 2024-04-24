@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -e
 export WORLDPATH=${HOME}/.minetest/worlds/world
 
@@ -18,20 +18,38 @@ then
    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
 fi
 
+if [ "${INPUT_TEST_MODE}" == "mod" ]
+then
+    # repository is a mod
+    echo "testing-mode: mod"
+
+    # determine modname
+    modname=${GITHUB_REPOSITORY#*/}
+    if [ ! -z "${INPUT_MODNAME}" ]
+    then
+        modname=${INPUT_MODNAME}
+    fi
+
+    # install game
+    cd ${WORLDPATH}/
+    echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
+    git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
+
+    # create link to current mod
+    ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
+else
+    # repository is a game
+    echo "testing-mode: game"
+    ln -s /github/workspace ${WORLDPATH}/game
+fi
+
 # check for "mtt_filter" var, use modname if not set
-export mtt_filter=${INPUT_MODNAME}
+export mtt_filter=${modname}
 if [ ! -z "${INPUT_MTT_FILTER}" ]
 then
     mtt_filter=${INPUT_MTT_FILTER}
 fi
 echo "list of mods to test: ${mtt_filter}"
-
-# install game
-cd ${WORLDPATH}/
-git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
-
-# create link to current mod
-ln -s /github/workspace ${WORLDPATH}/worldmods/${INPUT_MODNAME}
 
 # assemble minetest.conf
 cat <<EOF > /minetest.conf
@@ -70,7 +88,11 @@ minetestserver --config /minetest.conf --world ${WORLDPATH}
 # coverage filename replace
 if [ "${INPUT_ENABLE_COVERAGE}" == "true" ]
 then
-    sed -i "s#${WORLDPATH}/worldmods/${INPUT_MODNAME}/##g" ${WORLDPATH}/lcov.info
+    for modname in $(echo ${mtt_filter} | tr ',' ' ')
+    do
+        sed -i "s#${WORLDPATH}/worldmods/${modname}/##g" ${WORLDPATH}/lcov.info
+        sed -i "s#${WORLDPATH}/game/mods/${modname}/##g" ${WORLDPATH}/lcov.info
+    done
     mkdir /github/workspace/coverage
     cp ${WORLDPATH}/lcov.info /github/workspace/coverage/
 fi

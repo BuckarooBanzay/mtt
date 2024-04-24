@@ -122,13 +122,14 @@ jobs:
 ```
 
 All parameters:
-* `modname` (required) the name of the mod
+* `modname` the name of the mod, defaults to the repository-name
 * `mtt_filter` custom mods to filter for tests (`modname` is used if this is not set)
 * `enable_coverage` enables coverage stats
 * `enable_benchmarks` enables the benchmarks
 * `git_dependencies` list of dependencies (git repositories)
 * `additional_config` additional lines in the minetest.conf
 * `git_game_repo` url to the game (defaults to the minetest_game)
+* `test_mode` either 'mod' if the repository is a mod or 'game'
 * `mapgen` the mapgen t use (default so singlenode)
 
 # Related work
