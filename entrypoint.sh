@@ -18,6 +18,13 @@ then
    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
 fi
 
+# check for "mtt_filter" var, use modname if not set
+export mtt_filter=${INPUT_MODNAME}
+if [ -z "${INPUT_MTT_FILTER}" ]
+then
+    export mtt_filter=${INPUT_MTT_FILTER}
+fi
+
 # install game
 cd ${WORLDPATH}/
 git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
@@ -28,7 +35,7 @@ ln -s /github/workspace ${WORLDPATH}/worldmods/${INPUT_MODNAME}
 # assemble minetest.conf
 cat <<EOF > /minetest.conf
 mg_name = ${INPUT_MAPGEN}
-mtt_filter = ${INPUT_MODNAME}
+mtt_filter = ${mtt_filter}
 mtt_enable = true
 secure.trusted_mods = mtt
 EOF
