@@ -18,6 +18,7 @@ then
    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
 fi
 
+cd ${WORLDPATH}/
 if [ "${INPUT_TEST_MODE}" == "mod" ]
 then
     # repository is a mod
@@ -31,7 +32,6 @@ then
     fi
 
     # install game
-    cd ${WORLDPATH}/
     echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
     git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
 
@@ -55,20 +55,12 @@ echo "list of mods to test: ${mtt_filter}"
 cat <<EOF > /minetest.conf
 mg_name = ${INPUT_MAPGEN}
 mtt_filter = ${mtt_filter}
+mtt_enable_coverage = ${INPUT_ENABLE_COVERAGE}
+mtt_enable_benchmarks = ${INPUT_ENABLE_BENCHMARKS}
 mtt_enable = true
 secure.trusted_mods = mtt
 EOF
 echo "${INPUT_ADDITIONAL_CONFIG}" >> /minetest.conf
-
-if [ "${INPUT_ENABLE_COVERAGE}" == "true" ]
-then
-    echo "mtt_enable_coverage = true" >> /minetest.conf
-fi
-
-if [ "${INPUT_ENABLE_BENCHMARKS}" == "true" ]
-then
-    echo "mtt_enable_benchmarks = true" >> /minetest.conf
-fi
 
 # simple world.mt
 cat <<EOF > ${WORLDPATH}/world.mt
