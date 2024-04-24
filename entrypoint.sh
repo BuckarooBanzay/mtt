@@ -20,7 +20,7 @@ fi
 
 # check for "mtt_filter" var, use modname if not set
 export mtt_filter=${INPUT_MODNAME}
-if [ -z "${INPUT_MTT_FILTER}" ]
+if [ ! -z "${INPUT_MTT_FILTER}" ]
 then
     mtt_filter=${INPUT_MTT_FILTER}
 fi
