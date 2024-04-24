@@ -141,21 +141,6 @@ All parameters:
 * `git_game_repo` url to the game (defaults to the minetest_game)
 * `mapgen` the mapgen t use (default so singlenode)
 
-# Using with "raw" docker
-
-For a CI example with docker you can take a look at the code from the `mtzip` mod:
-
-Repository: https://github.com/BuckarooBanzay/mtzip
-
-The important files:
-* `mtt.lua` the tests, those could alternatively be inlined with the main code
-* `docker-compose.yml` the compose file that starts the minetest engine with `docker-compose up`
-* `.github/workflows/test.yml` the github workflow file with a version matrix
-* `test/minetest.conf` the server config for the test-mod
-* `test/Dockerfile` dockerfile that pulls in test-dependencies including the `mtt` mod from the `master` branch
-
-The whole testing can of course also be done without any docker tools.
-
 # Related work
 
 * https://github.com/S-S-X/mineunit unit test framework

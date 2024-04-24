@@ -1,17 +1,18 @@
 name: test
-
 on: [push, pull_request]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-    timeout-minutes: 10
-    strategy:
-      matrix:
-        ENGINE_VERSION: [5.3.0, 5.4.0, 5.5.0, 5.6.0, latest]
-
     steps:
     - uses: actions/checkout@v2
-    - name: test
-      run: docker-compose up --exit-code-from sut
+    - uses: ./
+      with:
+        modname: mtt
+        enable_coverage: "true"
+        enable_benchmarks: true
+        git_dependencies: |
+          https://github.com/BuckarooBanzay/promise
+        additional_config: |
+          mtt_enable_selftest = true
+    - name: Coveralls
+      uses: coverallsapp/github-action@v1
