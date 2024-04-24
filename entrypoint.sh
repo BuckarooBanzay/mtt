@@ -24,6 +24,7 @@ if [ -z "${INPUT_MTT_FILTER}" ]
 then
     export mtt_filter=${INPUT_MTT_FILTER}
 fi
+echo "list of mods to test: ${mtt_filter}"
 
 # install game
 cd ${WORLDPATH}/
