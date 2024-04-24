@@ -1,5 +1,6 @@
-#!/bin/sh
+#!/bin/bash
 set -e
+export
 export WORLDPATH=${HOME}/.minetest/worlds/world
 
 # create directory skeleton
@@ -70,7 +71,11 @@ minetestserver --config /minetest.conf --world ${WORLDPATH}
 # coverage filename replace
 if [ "${INPUT_ENABLE_COVERAGE}" == "true" ]
 then
-    sed -i "s#${WORLDPATH}/worldmods/${INPUT_MODNAME}/##g" ${WORLDPATH}/lcov.info
+    for modname in $(echo ${mtt_filter} | tr ',' ' ')
+    do
+        sed -i "s#${WORLDPATH}/worldmods/${modname}/##g" ${WORLDPATH}/lcov.info
+        sed -i "s#${WORLDPATH}/game/mods/${modname}/##g" ${WORLDPATH}/lcov.info
+    end
     mkdir /github/workspace/coverage
     cp ${WORLDPATH}/lcov.info /github/workspace/coverage/
 fi
