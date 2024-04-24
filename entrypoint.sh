@@ -19,20 +19,35 @@ then
    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
 fi
 
+if [ "${INPUT_TEST_MOD}" == "mod"]
+then
+    # repository is a mod
+
+    # determine modname
+    modname=${GITHUB_REPOSITORY#*/}
+    if [ ! -z "${INPUT_MODNAME}" ]
+    then
+        modname=${INPUT_MODNAME}
+    fi
+
+    # install game
+    cd ${WORLDPATH}/
+    git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
+
+    # create link to current mod
+    ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
+else
+    # repository is a game
+    ln -s /github/workspace ${WORLDPATH}/game
+fi
+
 # check for "mtt_filter" var, use modname if not set
-export mtt_filter=${INPUT_MODNAME}
+export mtt_filter=${modname}
 if [ ! -z "${INPUT_MTT_FILTER}" ]
 then
     mtt_filter=${INPUT_MTT_FILTER}
 fi
 echo "list of mods to test: ${mtt_filter}"
-
-# install game
-cd ${WORLDPATH}/
-git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
-
-# create link to current mod
-ln -s /github/workspace ${WORLDPATH}/worldmods/${INPUT_MODNAME}
 
 # assemble minetest.conf
 cat <<EOF > /minetest.conf

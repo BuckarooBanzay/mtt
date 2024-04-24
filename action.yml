@@ -2,10 +2,11 @@ name: mtt-runner
 description: Minetest test runner
 inputs:
   modname:
-    description: "the modname to test"
-    required: true
+    description: "the modname to test, defaults to the repository name"
+    required: false
+    default: ""
   mtt_filter:
-    description: "list of mods to test"
+    description: "list of mods to test, defaults to the modname"
     required: false
     default: ""
   git_dependencies:
@@ -20,6 +21,10 @@ inputs:
     description: "git repo of the game to use"
     required: false
     default: "https://github.com/minetest/minetest_game"
+  test_mode:
+    description: "testing mode, either 'mod' or 'game'"
+    required: false
+    default: "mod"
   mapgen:
     description: "mapgen name"
     required: false
