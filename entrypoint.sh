@@ -18,7 +18,7 @@ then
    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
 fi
 
-if [ "${INPUT_TEST_MOD}" == "mod"]
+if [ "${INPUT_TEST_MOD}" == "mod" ]
 then
     # repository is a mod
 
