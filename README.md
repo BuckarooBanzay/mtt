@@ -133,6 +133,7 @@ jobs:
 
 All parameters:
 * `modname` (required) the name of the mod
+* `mtt_filter` custom mods to filter for tests (`modname` is used if this is not set)
 * `enable_coverage` enables coverage stats
 * `enable_benchmarks` enables the benchmarks
 * `git_dependencies` list of dependencies (git repositories)
