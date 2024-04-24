@@ -1,6 +1,5 @@
 #!/bin/bash
 set -e
-export
 export WORLDPATH=${HOME}/.minetest/worlds/world
 
 # create directory skeleton
@@ -90,7 +89,7 @@ then
     do
         sed -i "s#${WORLDPATH}/worldmods/${modname}/##g" ${WORLDPATH}/lcov.info
         sed -i "s#${WORLDPATH}/game/mods/${modname}/##g" ${WORLDPATH}/lcov.info
-    end
+    done
     mkdir /github/workspace/coverage
     cp ${WORLDPATH}/lcov.info /github/workspace/coverage/
 fi
