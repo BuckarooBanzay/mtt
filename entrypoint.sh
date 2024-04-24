@@ -18,9 +18,10 @@ then
    git clone --depth=1 https://github.com/BuckarooBanzay/mtt
 fi
 
-if [ "${INPUT_TEST_MOD}" == "mod" ]
+if [ "${INPUT_TEST_MODE}" == "mod" ]
 then
     # repository is a mod
+    echo "testing-mode: mod"
 
     # determine modname
     modname=${GITHUB_REPOSITORY#*/}
@@ -31,12 +32,14 @@ then
 
     # install game
     cd ${WORLDPATH}/
+    echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
     git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
 
     # create link to current mod
     ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
 else
     # repository is a game
+    echo "testing-mode: game"
     ln -s /github/workspace ${WORLDPATH}/game
 fi
 
