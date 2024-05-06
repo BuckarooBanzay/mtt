@@ -4,12 +4,35 @@ local function no_op() end
 
 local players = {}
 
+-- merged "real" and "fake" player list
+local old_get_connected_players = minetest.get_connected_players
 function minetest.get_connected_players()
-    return players
+    local list = {}
+    for _, p in pairs(players) do
+        table.insert(list, p)
+    end
+    for _, p in ipairs(old_get_connected_players()) do
+        table.insert(list, p)
+    end
+    return list
 end
 
+local old_get_player_information = minetest.get_player_information
 function minetest.get_player_information(name)
-    return players[name] and players[name].info
+    if players[name] then
+        return players[name].info
+    else
+        return old_get_player_information(name)
+    end
+end
+
+local old_get_player_by_name = minetest.get_player_by_name
+function minetest.get_player_by_name(name)
+    if players[name] then
+        return players[name]
+    else
+        return old_get_player_by_name(name)
+    end
 end
 
 function mtt.join_player(name)
