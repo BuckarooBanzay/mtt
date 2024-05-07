@@ -132,6 +132,20 @@ All parameters:
 * `test_mode` either 'mod' if the repository is a mod or 'game'
 * `mapgen` the mapgen t use (default so singlenode)
 
+# Running with plain docker
+
+To use this with standalone docker you can use the provided docker image:
+```sh
+docker run --rm -it -v $(pwd):/github/workspace \
+    -e INPUT_MODNAME=promise \
+    -e INPUT_TEST_MODE=mod \
+    -e INPUT_MAPGEN=singlenode \
+    -e INPUT_GIT_GAME_REPO=https://github.com/minetest/minetest_game \
+    ghcr.io/buckaroobanzay/mtt
+```
+
+The above example uses `promise` as mtt-filter, `singlenode` as mapgen and the default mtg as game.
+
 # Related work
 
 * https://github.com/S-S-X/mineunit unit test framework
