@@ -3,7 +3,7 @@ name: build
 on:
   push:
     branches:
-      - 'master'
+      - 'main'
 
 jobs:
   build:
@@ -21,7 +21,7 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push latest docker image
-        if: success() && github.ref == 'refs/heads/master'
+        if: success() && github.ref == 'refs/heads/main'
         run: |
           docker build . -t ghcr.io/buckaroobanzay/mtt:latest
           docker push ghcr.io/buckaroobanzay/mtt:latest
