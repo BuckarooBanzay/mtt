@@ -49,6 +49,11 @@ function mtt.join_player(name)
         fn(player)
     end
 
+    -- get_player_information info
+    player.info = {
+        formspec_version = 4
+    }
+
     -- custom leave function
     player.leave = function(timed_out)
         for _, fn in ipairs(minetest.registered_on_leaveplayers) do
