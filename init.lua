@@ -36,8 +36,10 @@ if mtt.enabled then
         loadfile(MP .. "/coverage.lua")(ie)
     end
 
-    -- player api override
-    dofile(MP .. "/player.lua")
+    if minetest.get_modpath("fakelib") then
+        -- player api override
+        dofile(MP .. "/player.lua")
+    end
 
     -- start test execution
     dofile(MP .. "/execute.lua")
