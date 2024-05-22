@@ -15,5 +15,5 @@ read_globals = {
 	"VoxelArea", "vector",
 
 	-- deps
-	"Promise"
+	"Promise", "fakelib"
 }

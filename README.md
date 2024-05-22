@@ -66,6 +66,7 @@ mtt.export_nodenames(filename)
 mtt.validate_nodenames(minetest.get_modpath("my_mod") .. "/nodenames.txt")
 
 -- simulate a player (EXPERIMENTAL, some methods aren't implemented yet)
+-- NOTE: requires the `fakelib` mod to be present
 local player = mtt.join_player("singleplayer")
 player:leave()
 ```
