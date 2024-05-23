@@ -49,15 +49,6 @@ function mtt.join_player(name)
         formspec_version = 4
     }
 
-    -- custom leave function
-    player.leave = function(timed_out)
-        for _, fn in ipairs(minetest.registered_on_leaveplayers) do
-            fn(player, timed_out)
-        end
-        players[name] = nil
-        player_infos[name] = nil
-    end
-
     -- run prejoin callbacks
     for _, fn in ipairs(minetest.registered_on_prejoinplayers) do
         fn(name, "127.0.0.1")
@@ -69,4 +60,18 @@ function mtt.join_player(name)
     end
 
     return player
+end
+
+function mtt.leave_player(name, timed_out)
+    if not players[name] then
+        return false
+    end
+
+    for _, fn in ipairs(minetest.registered_on_leaveplayers) do
+        fn(players[name], timed_out)
+    end
+
+    players[name] = nil
+    player_infos[name] = nil
+    return true
 end
