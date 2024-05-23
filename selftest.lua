@@ -51,7 +51,7 @@ mtt.register("player join", function(callback)
     assert(not leave_obj)
     assert(not timed_out)
 
-    p:leave(true)
+    assert(mtt.leave_player("test", true))
     assert(leave_obj)
     assert(timed_out)
 

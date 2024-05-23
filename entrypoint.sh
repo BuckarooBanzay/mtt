@@ -12,12 +12,7 @@ do
     git clone --recurse-submodules --depth=1 $dep
 done
 
-# add the mtt mod if it does not exist
-if [ ! -d ${WORLDPATH}/worldmods/mtt ]
-then
-   git clone --depth=1 https://github.com/BuckarooBanzay/mtt
-fi
-
+# add game or mod
 cd ${WORLDPATH}/
 if [ "${INPUT_TEST_MODE}" == "mod" ]
 then
@@ -41,6 +36,12 @@ else
     # repository is a game
     echo "testing-mode: game"
     ln -s /github/workspace ${WORLDPATH}/game
+fi
+
+# add the mtt mod if it does not exist
+if [ ! -d ${WORLDPATH}/worldmods/mtt ]
+then
+   git clone --depth=1 https://github.com/BuckarooBanzay/mtt
 fi
 
 # check for "mtt_filter" var, use modname if not set

@@ -13,10 +13,12 @@ function minetest.get_connected_players()
     return list
 end
 
+local player_infos = {}
+
 local old_get_player_information = minetest.get_player_information
 function minetest.get_player_information(name)
     if players[name] then
-        return players[name].info
+        return player_infos[name]
     else
         return old_get_player_information(name)
     end
@@ -32,6 +34,7 @@ function minetest.get_player_by_name(name)
 end
 
 function mtt.join_player(name)
+    print("[mtt] creating and joining fake player: " .. name)
     local player = fakelib.create_player({ name = name })
     players[name] = player
 
@@ -42,17 +45,9 @@ function mtt.join_player(name)
     end
 
     -- get_player_information info
-    player.info = {
+    player_infos[name] = {
         formspec_version = 4
     }
-
-    -- custom leave function
-    player.leave = function(timed_out)
-        for _, fn in ipairs(minetest.registered_on_leaveplayers) do
-            fn(player, timed_out)
-        end
-        players[name] = nil
-    end
 
     -- run prejoin callbacks
     for _, fn in ipairs(minetest.registered_on_prejoinplayers) do
@@ -65,4 +60,18 @@ function mtt.join_player(name)
     end
 
     return player
+end
+
+function mtt.leave_player(name, timed_out)
+    if not players[name] then
+        return false
+    end
+
+    for _, fn in ipairs(minetest.registered_on_leaveplayers) do
+        fn(players[name], timed_out)
+    end
+
+    players[name] = nil
+    player_infos[name] = nil
+    return true
 end
