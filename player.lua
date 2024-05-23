@@ -13,10 +13,12 @@ function minetest.get_connected_players()
     return list
 end
 
+local player_infos = {}
+
 local old_get_player_information = minetest.get_player_information
 function minetest.get_player_information(name)
     if players[name] then
-        return players[name].info
+        return player_infos[name]
     else
         return old_get_player_information(name)
     end
@@ -42,7 +44,7 @@ function mtt.join_player(name)
     end
 
     -- get_player_information info
-    player.info = {
+    player_infos[name] = {
         formspec_version = 4
     }
 
@@ -52,6 +54,7 @@ function mtt.join_player(name)
             fn(player, timed_out)
         end
         players[name] = nil
+        player_infos[name] = nil
     end
 
     -- run prejoin callbacks
