@@ -34,6 +34,7 @@ function minetest.get_player_by_name(name)
 end
 
 function mtt.join_player(name)
+    print("[mtt] creating and joining fake player: " .. name)
     local player = fakelib.create_player({ name = name })
     players[name] = player
 
