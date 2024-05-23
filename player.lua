@@ -41,14 +41,6 @@ function mtt.join_player(name)
         auth_handler.create_auth(name, "pass")
     end
 
-    for _, fn in ipairs(minetest.registered_on_prejoinplayers) do
-        fn(name, "127.0.0.1")
-    end
-
-    for _, fn in ipairs(minetest.registered_on_joinplayers) do
-        fn(player)
-    end
-
     -- get_player_information info
     player.info = {
         formspec_version = 4
@@ -60,6 +52,16 @@ function mtt.join_player(name)
             fn(player, timed_out)
         end
         players[name] = nil
+    end
+
+    -- run prejoin callbacks
+    for _, fn in ipairs(minetest.registered_on_prejoinplayers) do
+        fn(name, "127.0.0.1")
+    end
+
+    -- run join callbacks
+    for _, fn in ipairs(minetest.registered_on_joinplayers) do
+        fn(player)
     end
 
     return player
