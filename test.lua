@@ -28,7 +28,7 @@ local function worker(index, success_callback)
         local t_diff = math.floor((minetest.get_us_time() - t_start) / 100) / 10
 
         if err then
-        -- error callback
+            -- error callback
             error("test failed: '" .. test.name .. "' with error: '" .. err .. "'")
         end
         print(
@@ -47,8 +47,13 @@ local function worker(index, success_callback)
         p:next(result_handler)
         p:catch(function(err)
             -- ensure that the "err" param is set
-            err = err or "unknown"
-            result_handler(err)
+            err = err or "<unknown>"
+            -- log to stderr
+            minetest.log("error", "test failed: '" .. test.name .. "' with error: '" .. err .. "'")
+            -- force shutdown (can't use error() here, still in a pcall)
+            minetest.after(0, function()
+                error(err)
+            end)
         end)
     end
 end
