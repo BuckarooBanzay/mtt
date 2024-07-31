@@ -44,8 +44,7 @@ local function worker(index, success_callback)
     local p = test.fn(result_handler)
     if p and p.is_promise then
         -- promise returned, handle it
-        p:next(result_handler)
-        p:catch(function(err)
+        p:next(result_handler, function(err)
             -- ensure that the "err" param is set
             err = err or "<unknown>"
             -- log to stderr
