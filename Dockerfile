@@ -1,4 +1,4 @@
-FROM ghcr.io/minetest-hosting/minetest-docker:5.8.0
+FROM ghcr.io/minetest/minetest:master
 USER root
 
 RUN apk add --no-cache bash git lua-dev luarocks &&\
