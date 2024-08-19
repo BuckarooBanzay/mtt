@@ -86,6 +86,15 @@ mtt_filter = my_mod,my_other_mod
 After starting the minetest engine with this setting the mod will run all tests in the specified mod(s)
 and shutdown with an exit code of `0` if everything executed successfully.
 
+To ensure the tests are only registered if the `mtt` mod is present and enabled you might want to add the following check:
+```lua
+if minetest.get_modpath("mtt") and mtt.enabled then
+ -- register tests here (directly or via dofile)
+end
+```
+
+A complete example on how to add `mtt` for testing is available in the [mapsync](https://github.com/BuckarooBanzay/mapsync/blob/master/init.lua) mod
+
 # Github action
 
 The `mtt` tests can be used in a github runner:
