@@ -1,4 +1,4 @@
-FROM ghcr.io/minetest/minetest:master
+FROM ghcr.io/minetest/minetest:5.9.1
 USER root
 
 RUN apk add --no-cache bash git lua-dev luarocks &&\
