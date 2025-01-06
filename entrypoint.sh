@@ -76,7 +76,7 @@ world_name = mtt
 EOF
 
 # start the engine
-minetestserver --config /minetest.conf --world ${WORLDPATH}
+luantiserver --config /minetest.conf --world ${WORLDPATH}
 
 # coverage filename replace
 if [ "${INPUT_ENABLE_COVERAGE}" == "true" ]
