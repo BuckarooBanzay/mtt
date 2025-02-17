@@ -1,0 +1,18 @@
+
+services:
+  mtt:
+    build: .
+    volumes:
+     - "./:/github/workspace"
+    environment:
+     INPUT_MODNAME: "mtt"
+     INPUT_ENABLE_BENCHMARKS: "true"
+     INPUT_GIT_DEPENDENCIES: |
+      https://github.com/BuckarooBanzay/promise
+      https://github.com/OgelGames/fakelib
+     INPUT_ADDITIONAL_CONFIG: |
+      mtt_enable_selftest = true
+     INPUT_TEST_MODE: "mod"
+     INPUT_MAPGEN: "singlenode"
+     INPUT_GIT_GAME_REPO: "https://github.com/minetest/minetest_game"
+
