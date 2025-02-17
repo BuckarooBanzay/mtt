@@ -9,7 +9,10 @@ mkdir -p ${WORLDPATH}/worldmods/
 cd ${WORLDPATH}/worldmods/
 for dep in ${INPUT_GIT_DEPENDENCIES}
 do
-    git clone --recurse-submodules --depth=1 $dep
+    if [ ! -d $(basename $dep) ]
+    then
+        git clone --recurse-submodules --depth=1 $dep
+    fi
 done
 
 # add game or mod
@@ -27,8 +30,11 @@ then
     fi
 
     # install game
-    echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
-    git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
+    if [ ! -d "game" ]
+    then
+        echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
+        git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
+    fi
 
     # create link to current mod
     ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
