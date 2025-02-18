@@ -37,11 +37,17 @@ then
     fi
 
     # create link to current mod
-    ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
+    if [ ! -L ${WORLDPATH}/worldmods/${modname} ]
+    then
+        ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
+    fi
 else
     # repository is a game
     echo "testing-mode: game"
-    ln -s /github/workspace ${WORLDPATH}/game
+    if [ ! -L ${WORLDPATH}/game ]
+    then
+        ln -s /github/workspace ${WORLDPATH}/game
+    fi
 fi
 
 # add the mtt mod if it does not exist
