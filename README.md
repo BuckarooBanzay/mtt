@@ -51,6 +51,16 @@ mtt.register_with_area("emerged area test", {
     assert(pos2.z - pos1.z == 9)
     callback()
 end)
+
+-- test definition table with timeout (optional)
+mtt.register("my long test", {
+  -- timeout defaults to 10 seconds unless manually specified
+  timeout = 5,
+  -- main test function
+  func = function(callback)
+    -- TODO: test things here
+  end
+})
 ```
 
 Helper functions:

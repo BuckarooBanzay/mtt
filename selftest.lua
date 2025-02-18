@@ -1,4 +1,8 @@
 
+
+-- manual test for timeout-testing
+mtt.register("timeout", function() end)
+
 -- test emerge helper
 mtt.emerge_area({x=0,y=0,z=0}, {x=32,y=32,z=32})
 
