@@ -7,6 +7,7 @@ services:
     environment:
      INPUT_MODNAME: "mtt"
      INPUT_ENABLE_BENCHMARKS: "true"
+     INPUT_ENABLE_COVERAGE: "true"
      INPUT_GIT_DEPENDENCIES: |
       https://github.com/BuckarooBanzay/promise
       https://github.com/OgelGames/fakelib
