@@ -98,6 +98,6 @@ then
         sed -i "s#${WORLDPATH}/worldmods/${modname}/##g" ${WORLDPATH}/lcov.info
         sed -i "s#${WORLDPATH}/game/mods/${modname}/##g" ${WORLDPATH}/lcov.info
     done
-    mkdir /github/workspace/coverage
+    mkdir -p /github/workspace/coverage
     cp ${WORLDPATH}/lcov.info /github/workspace/coverage/
 fi
