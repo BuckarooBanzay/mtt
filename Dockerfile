@@ -1,4 +1,4 @@
-FROM ghcr.io/luanti-org/luanti:5.11.0
+FROM ghcr.io/luanti-org/luanti:5.12.0
 USER root
 
 RUN apk add --no-cache bash git lua-dev luarocks &&\
