@@ -29,6 +29,8 @@ end
 
 if mtt.enabled then
     minetest.log("warning", "[mtt] mod active, don't enable this on a live-server!")
+    local version = minetest.get_version()
+    print(string.format("[mtt] Testing on engine: %s version: %s", version.project, version.string))
 
     if mtt.enable_coverage then
         -- enable coverage
