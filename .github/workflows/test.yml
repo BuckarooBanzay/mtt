@@ -16,4 +16,4 @@ jobs:
         additional_config: |
           mtt_enable_selftest = true
     - name: Coveralls
-      uses: coverallsapp/github-action@v1
+      uses: coverallsapp/github-action@v2
