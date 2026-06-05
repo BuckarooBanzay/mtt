@@ -8,12 +8,9 @@ jobs:
     - uses: ./
       with:
         modname: mtt
-        enable_coverage: "true"
         enable_benchmarks: true
         git_dependencies: |
           https://github.com/BuckarooBanzay/promise
           https://github.com/OgelGames/fakelib
         additional_config: |
           mtt_enable_selftest = true
-    - name: Coveralls
-      uses: coverallsapp/github-action@v2
