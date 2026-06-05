@@ -17,8 +17,7 @@ done
 
 # add game or mod
 cd ${WORLDPATH}/
-if [ "${INPUT_TEST_MODE}" == "mod" ]
-then
+if [ "${INPUT_TEST_MODE}" == "mod" ]; then
     # repository is a mod
     echo "testing-mode: mod"
 
@@ -41,8 +40,22 @@ then
     then
         ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
     fi
+elif [ "${INPUT_TEST_MODE}" == "modrepo" ]; then
+    # repository is a mod-collection
+    echo "testing-mode: modrepo"
+    if [ ! -d "game" ]
+    then
+        echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
+        git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
+    fi
+
+    # nuke current mods
+    rm -rf ${WORLDPATH}/worldmods
+
+    # create link to current mod
+    ln -s /github/workspace ${WORLDPATH}/worldmods
 else
-    # repository is a game
+    # repository is a game (default)
     echo "testing-mode: game"
     if [ ! -L ${WORLDPATH}/game ]
     then
