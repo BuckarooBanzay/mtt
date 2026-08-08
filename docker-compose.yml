@@ -13,6 +13,7 @@ services:
       https://github.com/OgelGames/fakelib
      INPUT_ADDITIONAL_CONFIG: |
       mtt_enable_selftest = true
+      deprecated_lua_api_handling = error
      INPUT_TEST_MODE: "mod"
      INPUT_MAPGEN: "singlenode"
      INPUT_GIT_GAME_REPO: "https://github.com/minetest/minetest_game"
