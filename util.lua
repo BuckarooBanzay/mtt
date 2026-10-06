@@ -8,7 +8,7 @@ function mtt.emerge_area(pos1, pos2)
 				end
 			end)
 		end,
-		timout = 30,
+		timeout = 30,
 	})
 end
 
