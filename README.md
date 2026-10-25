@@ -68,11 +68,11 @@ Helper functions:
 mtt.emerge_area({x=0,y=0,z=0}, {x=32,y=32,z=32})
 
 -- export all nodenames
-local filename = minetest.get_worldpath() .. "/nodenames.txt"
+local filename = core.get_worldpath() .. "/nodenames.txt"
 mtt.export_nodenames(filename)
 
 -- validate nodenames
-mtt.validate_nodenames(minetest.get_modpath("my_mod") .. "/nodenames.txt")
+mtt.validate_nodenames(core.get_modpath("my_mod") .. "/nodenames.txt")
 
 -- simulate a player (EXPERIMENTAL, some methods aren't implemented yet)
 -- NOTE: requires the `fakelib` mod to be present
@@ -97,7 +97,7 @@ and shutdown with an exit code of `0` if everything executed successfully.
 
 To ensure the tests are only registered if the `mtt` mod is present and enabled you might want to add the following check:
 ```lua
-if minetest.get_modpath("mtt") and mtt.enabled then
+if core.get_modpath("mtt") and mtt.enabled then
  -- register tests here (directly or via dofile)
 end
 ```

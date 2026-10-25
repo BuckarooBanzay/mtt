@@ -1,8 +1,8 @@
 local players = {}
 
 -- merged "real" and "fake" player list
-local old_get_connected_players = minetest.get_connected_players
-function minetest.get_connected_players()
+local old_get_connected_players = core.get_connected_players
+function core.get_connected_players()
     local list = {}
     for _, p in pairs(players) do
         table.insert(list, p)
@@ -15,8 +15,8 @@ end
 
 local player_infos = {}
 
-local old_get_player_information = minetest.get_player_information
-function minetest.get_player_information(name)
+local old_get_player_information = core.get_player_information
+function core.get_player_information(name)
     if players[name] then
         return player_infos[name]
     else
@@ -24,8 +24,8 @@ function minetest.get_player_information(name)
     end
 end
 
-local old_get_player_by_name = minetest.get_player_by_name
-function minetest.get_player_by_name(name)
+local old_get_player_by_name = core.get_player_by_name
+function core.get_player_by_name(name)
     if players[name] then
         return players[name]
     else
@@ -38,7 +38,7 @@ function mtt.join_player(name)
     local player = fakelib.create_player({ name = name })
     players[name] = player
 
-    local auth_handler = minetest.get_auth_handler()
+    local auth_handler = core.get_auth_handler()
     local auth = auth_handler.get_auth(name)
     if not auth then
         auth_handler.create_auth(name, "pass")
@@ -50,12 +50,12 @@ function mtt.join_player(name)
     }
 
     -- run prejoin callbacks
-    for _, fn in ipairs(minetest.registered_on_prejoinplayers) do
+    for _, fn in ipairs(core.registered_on_prejoinplayers) do
         fn(name, "127.0.0.1")
     end
 
     -- run join callbacks
-    for _, fn in ipairs(minetest.registered_on_joinplayers) do
+    for _, fn in ipairs(core.registered_on_joinplayers) do
         fn(player)
     end
 
@@ -67,7 +67,7 @@ function mtt.leave_player(name, timed_out)
         return false
     end
 
-    for _, fn in ipairs(minetest.registered_on_leaveplayers) do
+    for _, fn in ipairs(core.registered_on_leaveplayers) do
         fn(players[name], timed_out)
     end
 

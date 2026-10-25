@@ -32,7 +32,7 @@ mtt.register_with_area("emerged area test", {
 end)
 
 -- nodename export and validation
-local filename = minetest.get_worldpath() .. "/nodenames.txt"
+local filename = core.get_worldpath() .. "/nodenames.txt"
 mtt.export_nodenames(filename)
 mtt.validate_nodenames(filename)
 
@@ -43,8 +43,8 @@ mtt.check_recipes("dye")
 mtt.register("player join", function(callback)
     local joined_obj
     local leave_obj, timed_out
-    minetest.register_on_joinplayer(function(o) joined_obj = o end)
-    minetest.register_on_leaveplayer(function(o, t)
+    core.register_on_joinplayer(function(o) joined_obj = o end)
+    core.register_on_leaveplayer(function(o, t)
         leave_obj = o
         timed_out = t
     end)

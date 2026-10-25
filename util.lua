@@ -1,8 +1,8 @@
 
 function mtt.emerge_area(pos1, pos2)
-    mtt.register("emerge_area " .. minetest.pos_to_string(pos1) .. " -> " .. minetest.pos_to_string(pos2), {
+    mtt.register("emerge_area " .. core.pos_to_string(pos1) .. " -> " .. core.pos_to_string(pos2), {
 		func = function(callback)
-			minetest.emerge_area(pos1, pos2, function(_, _, calls_remaining)
+			core.emerge_area(pos1, pos2, function(_, _, calls_remaining)
 				if calls_remaining == 0 then
 					callback()
 				end
@@ -39,7 +39,7 @@ function mtt.register_with_area(name, options, fn)
 
         if options.emerged then
             -- emerge area first
-            minetest.emerge_area(pos1, pos2, function(_, _, calls_remaining)
+            core.emerge_area(pos1, pos2, function(_, _, calls_remaining)
                 if calls_remaining == 0 then
                     -- start actual test
                     delegate_test()
@@ -55,7 +55,7 @@ end
 
 function mtt.export_nodenames(filename)
     local f = io.open(filename, "w")
-    for nodename in pairs(minetest.registered_nodes) do
+    for nodename in pairs(core.registered_nodes) do
         f:write(nodename .. "\n")
     end
     f:close()
@@ -70,7 +70,7 @@ function mtt.validate_nodenames(filename)
 
         -- assemble node-list from registered lbm's
         local lbm_nodes = {}
-        for _, lbm in ipairs(minetest.registered_lbms) do
+        for _, lbm in ipairs(core.registered_lbms) do
             if type(lbm.nodenames) == "string" then
                 -- duh, list as string
                 lbm_nodes[lbm.nodenames] = true
@@ -85,8 +85,8 @@ function mtt.validate_nodenames(filename)
         -- check nodes
         local missing_nodenames = {}
         for _, nodename in ipairs(assert_nodes) do
-            if not minetest.registered_nodes[nodename]
-                and not minetest.registered_aliases[nodename]
+            if not core.registered_nodes[nodename]
+                and not core.registered_aliases[nodename]
                 and not lbm_nodes[nodename] then
                     table.insert(missing_nodenames, nodename)
             end
@@ -107,16 +107,16 @@ end
 function mtt.check_recipes(modname)
     mtt.register("recipe check for mod '" .. modname .. "'", function(callback)
         -- ensure the mod is available
-        assert(minetest.get_modpath(modname), "mod not found: '" .. modname .. "'")
+        assert(core.get_modpath(modname), "mod not found: '" .. modname .. "'")
 
         -- taken from https://github.com/mt-mods/homedecor_modpack/issues/41#issue-1330629615
         -- thanks @wsor4035 :)
         local output = {}
         local hd_count, ig_count, missing_count = 0, 0, 0
-        for k, v in pairs(minetest.registered_items) do
+        for k, v in pairs(core.registered_items) do
             if modname == k:split(":")[1] then
                 hd_count = hd_count + 1
-                local crafts = minetest.get_all_craft_recipes(k)
+                local crafts = core.get_all_craft_recipes(k)
                 if not crafts then
                     if v.groups and v.groups.not_in_creative_inventory == 1 then
                         ig_count = ig_count + 1
@@ -131,14 +131,14 @@ function mtt.check_recipes(modname)
             table.insert(output, "total items: " .. hd_count)
             table.insert(output, "ignored items: " .. ig_count)
             table.insert(output, "missing items: " .. missing_count)
-            minetest.log("error", dump(output))
+            core.log("error", dump(output))
             error("missing crafting recipes: " .. missing_count)
         end
         callback()
     end)
 end
 
-local modfilter = minetest.settings:get("mtt_filter")
+local modfilter = core.settings:get("mtt_filter")
 local enabled_mods = {}
 if modfilter then
     for filter in string.gmatch(modfilter, '([^,]+)') do

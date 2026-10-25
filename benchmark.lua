@@ -5,7 +5,7 @@ function mtt.benchmark(name, fn)
     assert(type(name) == "string")
     assert(type(fn) == "function")
 
-    local modname = minetest.get_current_modname() or "?"
+    local modname = core.get_current_modname() or "?"
     if not mtt.is_mod_enabled(modname) then
         return
     end
@@ -35,14 +35,14 @@ local function worker(index, success_callback)
         local iterations = default_iterations[it_index]
         if not iterations then
             -- all iterations done, next benchmark
-            minetest.after(1, worker, index+1, success_callback)
+            core.after(1, worker, index+1, success_callback)
             return
         end
 
-        local t_start = minetest.get_us_time()
+        local t_start = core.get_us_time()
 
         local callback = function()
-            local t_diff = minetest.get_us_time() - t_start
+            local t_diff = core.get_us_time() - t_start
             if t_diff > max_time_micros then
                 -- took too much time, skip further iterations
                 it_index = -1
@@ -59,7 +59,7 @@ local function worker(index, success_callback)
                 " iterations took " .. t_diff .. " microseconds " ..
                 "(" .. executions_per_second .. " executions/s)")
 
-            minetest.after(0, iteration_worker)
+            core.after(0, iteration_worker)
         end
 
         entry.fn(callback, iterations)
@@ -69,5 +69,5 @@ local function worker(index, success_callback)
 end
 
 function mtt.execute_benchmarks(success_callback)
-    minetest.after(1, worker, 1, success_callback)
+    core.after(1, worker, 1, success_callback)
 end

@@ -9,7 +9,7 @@ if ie then
 
     local include_paths = {}
     for modname in pairs(mtt.get_enabled_mods()) do
-        table.insert(include_paths, minetest.get_modpath(modname))
+        table.insert(include_paths, core.get_modpath(modname))
     end
 
     mtt.luacov_runner.init({

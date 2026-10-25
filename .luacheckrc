@@ -1,6 +1,6 @@
 globals = {
 	"mtt",
-	"minetest",
+	"core",
 	"require", "io"
 }
 
