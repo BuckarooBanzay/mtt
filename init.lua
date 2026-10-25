@@ -7,7 +7,7 @@ mtt = {
     enable_benchmarks = minetest.settings:get("mtt_enable_benchmarks") == "true",
 
     -- export all nodenames to the worldpath (nodenames.txt)
-    export_nodenames = minetest.settings:get("mtt_export_nodenames") == "true",
+    enable_export_nodenames = minetest.settings:get("mtt_export_nodenames") == "true",
 
     -- enable coverage with "luacov"
     -- requires `mtt` to be in the "secure.trusted_mods setting" and `luacov` to be installed
@@ -23,7 +23,7 @@ dofile(MP .. "/test.lua")
 dofile(MP .. "/benchmark.lua")
 dofile(MP .. "/util.lua")
 
-if mtt.export_nodenames then
+if mtt.enable_export_nodenames then
     dofile(MP .. "/export_nodenames.lua")
 end
 

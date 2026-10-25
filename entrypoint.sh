@@ -1,29 +1,29 @@
 #!/bin/bash
 set -e
-export WORLDPATH=${HOME}/.minetest/worlds/world
+export WORLDPATH="${HOME}/.minetest/worlds/world"
 
 # create directory skeleton
-mkdir -p ${WORLDPATH}/worldmods/
+mkdir -p "${WORLDPATH}/worldmods/"
 
 # clone dependencies
-cd ${WORLDPATH}/worldmods/
+cd "${WORLDPATH}/worldmods/"
 for dep in ${INPUT_GIT_DEPENDENCIES}
 do
-    if [ ! -d $(basename $dep) ]
+    if [ ! -d "$(basename "$dep")" ]
     then
-        git clone --recurse-submodules --depth=1 $dep
+        git clone --recurse-submodules --depth=1 "$dep"
     fi
 done
 
 # add game or mod
-cd ${WORLDPATH}/
+cd "${WORLDPATH}/"
 if [ "${INPUT_TEST_MODE}" == "mod" ]; then
     # repository is a mod
     echo "testing-mode: mod"
 
     # determine modname
     modname=${GITHUB_REPOSITORY#*/}
-    if [ ! -z "${INPUT_MODNAME}" ]
+    if [ -n "${INPUT_MODNAME}" ]
     then
         modname=${INPUT_MODNAME}
     fi
@@ -32,13 +32,13 @@ if [ "${INPUT_TEST_MODE}" == "mod" ]; then
     if [ ! -d "game" ]
     then
         echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
-        git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
+        git clone --recurse-submodules --depth=1 "${INPUT_GIT_GAME_REPO}" game
     fi
 
     # create link to current mod
-    if [ ! -L ${WORLDPATH}/worldmods/${modname} ]
+    if [ ! -L "${WORLDPATH}/worldmods/${modname}" ]
     then
-        ln -s /github/workspace ${WORLDPATH}/worldmods/${modname}
+        ln -s /github/workspace "${WORLDPATH}/worldmods/${modname}"
     fi
 elif [ "${INPUT_TEST_MODE}" == "modrepo" ]; then
     # repository is a mod-collection
@@ -46,32 +46,32 @@ elif [ "${INPUT_TEST_MODE}" == "modrepo" ]; then
     if [ ! -d "game" ]
     then
         echo "Cloning ${INPUT_GIT_GAME_REPO} into game directory"
-        git clone --recurse-submodules --depth=1 ${INPUT_GIT_GAME_REPO} game
+        git clone --recurse-submodules --depth=1 "${INPUT_GIT_GAME_REPO}" game
     fi
 
     # nuke current mods
-    rm -rf ${WORLDPATH}/worldmods
+    rm -rf "${WORLDPATH}/worldmods"
 
     # create link to current mod
-    ln -s /github/workspace ${WORLDPATH}/worldmods
+    ln -s /github/workspace "${WORLDPATH}/worldmods"
 else
     # repository is a game (default)
     echo "testing-mode: game"
-    if [ ! -L ${WORLDPATH}/game ]
+    if [ ! -L "${WORLDPATH}/game" ]
     then
-        ln -s /github/workspace ${WORLDPATH}/game
+        ln -s /github/workspace "${WORLDPATH}/game"
     fi
 fi
 
 # add the mtt mod if it does not exist
-if [ ! -d ${WORLDPATH}/worldmods/mtt ]
+if [ ! -d "${WORLDPATH}/worldmods/mtt" ]
 then
-   git clone --depth=1 https://github.com/BuckarooBanzay/mtt ${WORLDPATH}/worldmods/mtt
+   git clone --depth=1 https://github.com/BuckarooBanzay/mtt "${WORLDPATH}/worldmods/mtt"
 fi
 
 # check for "mtt_filter" var, use modname if not set
 export mtt_filter=${modname}
-if [ ! -z "${INPUT_MTT_FILTER}" ]
+if [ -n "${INPUT_MTT_FILTER}" ]
 then
     mtt_filter=${INPUT_MTT_FILTER}
 fi
@@ -89,7 +89,7 @@ EOF
 echo "${INPUT_ADDITIONAL_CONFIG}" >> /minetest.conf
 
 # simple world.mt
-cat <<EOF > ${WORLDPATH}/world.mt
+cat <<EOF > "${WORLDPATH}/world.mt"
 enable_damage = false
 creative_mode = true
 mod_storage_backend = sqlite3
@@ -101,16 +101,29 @@ world_name = mtt
 EOF
 
 # start the engine
-luantiserver --config /minetest.conf --world ${WORLDPATH}
+luantiserver --config /minetest.conf --world "${WORLDPATH}"
 
 # coverage filename replace
 if [ "${INPUT_ENABLE_COVERAGE}" == "true" ]
 then
-    for modname in $(echo ${mtt_filter} | tr ',' ' ')
+    if [ ! -f "${WORLDPATH}/lcov.info" ]
+    then
+        echo "coverage enabled but '${WORLDPATH}/lcov.info' was not generated" >&2
+        exit 1
+    fi
+
+    # escape sed special characters (regex + the '#' delimiter)
+    sed_escape() {
+        printf '%s' "$1" | sed -e 's/[][\.*^$#/]/\\&/g'
+    }
+
+    for mod in $(echo "${mtt_filter}" | tr ',' ' ')
     do
-        sed -i "s#${WORLDPATH}/worldmods/${modname}/##g" ${WORLDPATH}/lcov.info
-        sed -i "s#${WORLDPATH}/game/mods/${modname}/##g" ${WORLDPATH}/lcov.info
+        for prefix in "${WORLDPATH}/worldmods/${mod}/" "${WORLDPATH}/game/mods/${mod}/"
+        do
+            sed -i "s#$(sed_escape "${prefix}")##g" "${WORLDPATH}/lcov.info"
+        done
     done
     mkdir -p /github/workspace/coverage
-    cp ${WORLDPATH}/lcov.info /github/workspace/coverage/
+    cp "${WORLDPATH}/lcov.info" /github/workspace/coverage/
 fi
