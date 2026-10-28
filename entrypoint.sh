@@ -9,9 +9,11 @@ mkdir -p "${WORLDPATH}/worldmods/"
 cd "${WORLDPATH}/worldmods/"
 for dep in ${INPUT_GIT_DEPENDENCIES}
 do
-    if [ ! -d "$(basename "$dep")" ]
+    name="$(basename "${dep%/}")"
+    name="${name%.git}"
+    if [ ! -d "$name" ]
     then
-        git clone --recurse-submodules --depth=1 "$dep"
+        git clone --recurse-submodules --depth=1 "$dep" "$name"
     fi
 done
 
