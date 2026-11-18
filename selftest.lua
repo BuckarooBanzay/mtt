@@ -66,6 +66,18 @@ mtt.register("simple promise", function()
     return Promise.after(0)
 end)
 
+-- a resolved value must not be treated as an error
+mtt.register("promise resolving with a value", function()
+    return Promise.resolve(42)
+end)
+
+-- callback invoked from within a promise handler (pcall context)
+mtt.register("callback from promise handler", function(callback)
+    Promise.after(0):next(function()
+        callback()
+    end)
+end)
+
 -- benchmark
 mtt.benchmark("bench-thing", function(callback, iterations)
     for _=1,iterations do
